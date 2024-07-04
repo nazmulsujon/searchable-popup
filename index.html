@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device=width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Searchable User Box</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
@@ -12,9 +12,73 @@
       body {
         font-family: "Poppins", sans-serif;
       }
+
+      .delete-option {
+        color: red;
+        cursor: pointer;
+        margin-left: 10px;
+      }
+
+      .category-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px;
+        border-bottom: 1px solid #ccc;
+      }
+
+      .dropdown {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+      }
+
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: white;
+        min-width: 100%;
+        font-size: 14px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 1;
+        max-height: 100px;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        border: 1px solid #ccc;
+        width: 100%;
+      }
+
+      .dropdown-content div {
+        padding: 5px 10px;
+        cursor: pointer;
+      }
+
+      .dropdown-content div:hover {
+        background-color: #f1f1f1;
+      }
+
+      .dropdown.show .dropdown-content {
+        display: block;
+      }
+
+      .dropbtn {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+      }
+
+      .dropbtn img {
+        width: 16px;
+        height: 16px;
+        margin-left: 10px;
+      }
     </style>
   </head>
-  <body style="font-family: 'Poppins', sans-serif">
+  <body>
     <section
       style="display: flex; justify-content: center; align-items: center"
     >
@@ -22,11 +86,7 @@
         <button
           class="show-button"
           onclick="togglePopup()"
-          style="
-            margin: 10px 30px;
-            padding: 10px 20px;
-            font-family: 'Poppins', sans-serif;
-          "
+          style="margin: 10px 30px; padding: 10px 20px"
         >
           Show Users
         </button>
@@ -36,14 +96,13 @@
           style="
             display: none;
             position: absolute;
-            width: 200px;
-            height: 300px;
+            width: 300px;
+            height: 400px;
             border: 1px solid #ccc;
             padding: 10px;
             box-sizing: border-box;
             background-color: white;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            font-family: 'Poppins', sans-serif;
           "
         >
           <div
@@ -51,7 +110,7 @@
             style="
               display: flex;
               justify-content: space-between;
-              margin-bottom: 10px;
+              margin-bottom: 8px;
             "
           >
             <input
@@ -59,20 +118,12 @@
               id="searchInput"
               class="search-box"
               placeholder="Search user..."
-              style="
-                width: calc(100% - 90px);
-                padding: 5px;
-                font-family: 'Poppins', sans-serif;
-              "
+              style="width: calc(100% - 90px); padding: 5px"
             />
             <select
               id="filterSelect"
               class="select-box"
-              style="
-                width: 80px;
-                padding: 5px;
-                font-family: 'Poppins', sans-serif;
-              "
+              style="width: 80px; padding: 5px"
             >
               <option value="all">All</option>
               <option value="selected">Selected</option>
@@ -80,13 +131,30 @@
             </select>
           </div>
           <div
+            class="category-container"
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: 12px;
+            "
+          >
+            <button id="addCategoryButton" style="width: 40%">
+              Add category
+            </button>
+            <div class="dropdown" style="width: 50%">
+              <button class="dropbtn" id="categoryDropdownButton">
+                Select Category
+                <img src="./icons/arrow-down.png" alt="Dropdown Icon" />
+              </button>
+              <div id="categorySelectContainer" class="dropdown-content">
+                <!-- Categories will be inserted here by JavaScript -->
+              </div>
+            </div>
+          </div>
+          <div
             class="user-list"
             id="userList"
-            style="
-              height: calc(100% - 40px);
-              overflow-y: auto;
-              font-family: 'Poppins', sans-serif;
-            "
+            style="height: calc(100% - 120px); overflow-y: auto"
           >
             <!-- User items will be inserted here by JavaScript -->
           </div>
